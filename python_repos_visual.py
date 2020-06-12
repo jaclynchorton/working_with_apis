@@ -1,6 +1,5 @@
 #python_repos_visual.py
-from plotly.graph_objs import Bar
-from plotly import offline
+import plotly.graph_objs as go
 import requests
 
 #Make an api call and store the response
@@ -19,31 +18,16 @@ for repo_dict in repo_dicts:
     stars.append(repo_dict['stargazers_count'])
 
 #Make visualization.
-data = [{
-    'type': 'bar',
-    'x': repo_names,
-    'y:': stars,
-}]
-
+trace = go.Bar(x=repo_names, y = stars)
 my_layout = {
     'title': 'Most starred Python Projects on GitHub',
+    'title_x': 0.5,
     'xaxis': {'title': 'Repository'},
     'yaxis': {'title': 'Stars'},
 }
-fig = {'data': data, 'layout': my_layout}
-offline.plot(fig, filename='python_repos.html')
-#print(f":Total repositories: {response_dict['total_count']}")
-
-#Explore information about the repositories.
-
-#print(f"Repositories returned: {len(repo_dicts)}")
-
-#Examine the first repository.
-#repo_dict = repo_dicts[0]
-
-#Process results
-
-#print("\nSelected information about each repository:")
+fig = go.Figure(data=trace, layout=my_layout)
+#offline.plot(fig, filename='python_repos.html')
+fig.show()
 
     
 
